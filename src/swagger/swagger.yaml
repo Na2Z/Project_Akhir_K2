@@ -1,0 +1,391 @@
+swagger: "2.0"
+info:
+  title: My API
+  description: API Documentation
+  version: 1.0.0
+host: localhost:3000
+basePath: /
+schemes:
+  - http
+paths:
+  /auth/register:
+    post:
+      summary: Register path.
+      description: API for user register
+      tags:
+        - "Auth"
+      parameters:
+        - name: credentials
+          in: body
+          required: true
+          description: User credentials
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              password_confirm:
+                type: string
+              name:
+                type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+  /auth/login:
+    post:
+      summary: Login path.
+      description: Path for get user credentials
+      tags:
+        - "Auth"
+      parameters:
+        - name: credentials
+          in: body
+          required: true
+          description: User credentials
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+  /customers:
+    post:
+      tags:
+        - customers
+      summary: Add a new customer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              phone:
+                type: string
+      responses:
+        "200":
+          description: OK
+    get:
+      tags:
+        - customers
+      summary: Get all customers
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: OK
+  /customers/{id}:
+    patch:
+      tags:
+        - customers
+      summary: Update customer by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Customer ID
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              phone:
+                type: string
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - customers
+      summary: Delete customer by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Customer ID
+      responses:
+        "200":
+          description: OK
+    get:
+      tags:
+        - customers
+      summary: Get customer by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Customer ID
+      responses:
+        "200":
+          description: OK
+  /orders:
+    post:
+      tags:
+        - orders
+      summary: Add a new order
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              customer:
+                type: string
+              products:
+                type: string
+              totalPrice:
+                type: number
+      responses:
+        "200":
+          description: OK
+  /orders/{id}:
+    get:
+      tags:
+        - orders
+      summary: Get order by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Order ID
+      responses:
+        "200":
+          description: OK
+    put:
+      tags:
+        - orders
+      summary: Update order by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Order ID
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              customer:
+                type: string
+              product:
+                type: string
+              totalPrice:
+                type: number
+              status:
+                type: string
+                enum:
+                  - pending
+                  - completed
+                  - cancelled
+                  - sending
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - orders
+      summary: Delete order by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Order ID
+      responses:
+        "200":
+          description: OK
+  /product:
+    get:
+      tags:
+        - product
+      summary: Get all products
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: OK
+    post:
+      tags:
+        - product
+      summary: Add a new product
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              price:
+                type: number
+              description:
+                type: string
+      responses:
+        "200":
+          description: OK
+  /product/{Id}:
+    patch:
+      tags:
+        - product
+      summary: Update product by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          type: string
+          description: Product ID
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              price:
+                type: number
+              description:
+                type: string
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+        - product
+      summary: Delete product by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          type: string
+          description: Product ID
+      responses:
+        "200":
+          description: OK
+    get:
+      tags:
+        - product
+      summary: get product by ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - Bearer: []
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          type: string
+          description: Product ID
+      responses:
+        "200":
+          description: OK
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Authentication type for the Bearer header
