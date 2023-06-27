@@ -10,8 +10,18 @@ async function addOrder(req, res) {
     const order = await newOrder(req.body);
     res.status(201).send(order);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Terjadi kesalahan saat membuat pesanan" });
+  }
+}
+
+async function getOrderById(req, res) {
+  try {
+    const orderId = req.params.id;
+    const order = await getOrder(orderId);
+    res.json(order);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Kesalahan server internal" });
   }
 }
 
