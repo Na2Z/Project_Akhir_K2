@@ -3,7 +3,7 @@ name: feature checking
 on:
   push:
     branches:
-      - "master" #only master
+      - "main" #only master
 env:
   DB_HOST: 127.0.0.1
   DB_PORT: 27017
